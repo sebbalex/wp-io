@@ -83,19 +83,15 @@ function run_wpio() {
   add_action( 'admin_menu', 'wpio_options_page' );
   function wpio_options_page() {
       register_setting('wpio_options', 'wpio'); //register page to use options.php as action in form
-      $hookname = add_menu_page(
+      add_menu_page(
           'WP IO',
           'WP IO',
           'manage_options',
-          plugin_dir_path(__FILE__) . 'admin/partials/plugin-wpio-display.php',
+          plugin_dir_path(__FILE__) . 'admin/partials/wpio-display.php',
           null,
           plugin_dir_url(__FILE__) . 'public/images/icon_wpio.png',
           20
       );
-      add_action( 'load-' . $hookname, 'wpio_options_page_submit' );
-  }
-  function wpio_options_page_submit() {
- 
   }
 }
 run_wpio();
