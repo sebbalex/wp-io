@@ -27,9 +27,9 @@ class WPIO_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string    $wpio    The ID of this plugin.
 	 */
-	private $plugin_name;
+	private $wpio;
 
 	/**
 	 * The version of this plugin.
@@ -44,12 +44,12 @@ class WPIO_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
+	 * @param      string    $wpio       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $wpio, $version ) {
 
-		$this->plugin_name = $plugin_name;
+		$this->wpio = $wpio;
 		$this->version = $version;
 
 	}
@@ -73,7 +73,7 @@ class WPIO_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/plugin-name-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->wpio, plugin_dir_url( __FILE__ ) . 'css/plugin-name-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,7 +96,7 @@ class WPIO_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/plugin-name-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->wpio, plugin_dir_url( __FILE__ ) . 'js/plugin-name-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 
