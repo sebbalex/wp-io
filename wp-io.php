@@ -17,7 +17,7 @@
  * @wordpress-plugin
  * Plugin Name:       WP IO
  * Plugin URI:        https://devweb.it/wp-io
- * Description:        A wordpress plugin for IO App
+ * Description:       A wordpress plugin for IO App
  * Version:           0.0.2
  * Author:            sebbalex
  * Author URI:        https://devweb.it
@@ -80,5 +80,22 @@ function run_wpio() {
 	$plugin = new WPIO();
 	$plugin->run();
 
+  add_action( 'admin_menu', 'wpio_options_page' );
+  function wpio_options_page() {
+      register_setting('wpio_options', 'wpio'); //register page to use options.php as action in form
+      $hookname = add_menu_page(
+          'WP IO',
+          'WP IO',
+          'manage_options',
+          plugin_dir_path(__FILE__) . 'admin/partials/plugin-wpio-display.php',
+          null,
+          plugin_dir_url(__FILE__) . 'public/images/icon_wpio.png',
+          20
+      );
+      add_action( 'load-' . $hookname, 'wpio_options_page_submit' );
+  }
+  function wpio_options_page_submit() {
+ 
+  }
 }
 run_wpio();

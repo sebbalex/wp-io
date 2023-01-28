@@ -18,7 +18,7 @@
  *
  * @package    WPIO
  * @subpackage WPIO/public
- * @author     Your Name <email@example.com>
+ * @author     sebbalex <sebbalex@gmail.com>
  */
 class WPIO_Public {
 

@@ -18,7 +18,7 @@
  *
  * @package    WPIO
  * @subpackage WPIO/admin
- * @author     Your Name <email@example.com>
+ * @author     sebbalex <sebbalex@gmail.com>
  */
 class WPIO_Admin {
 

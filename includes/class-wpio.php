@@ -25,7 +25,7 @@
  * @since      1.0.0
  * @package    WPIO
  * @subpackage WPIO/includes
- * @author     Your Name <email@example.com>
+ * @author     sebbalex <sebbalex@gmail.com>
  */
 class WPIO {
 
@@ -72,7 +72,7 @@ class WPIO {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->wpio = 'plugin-name';
+		$this->wpio = 'wpio';
 
 		$this->load_dependencies();
 		$this->set_locale();

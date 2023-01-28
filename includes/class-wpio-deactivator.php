@@ -18,7 +18,7 @@
  * @since      1.0.0
  * @package    WPIO
  * @subpackage WPIO/includes
- * @author     Your Name <email@example.com>
+ * @author     sebbalex <sebbalex@gmail.com>
  */
 class WPIO_Deactivator {
 
