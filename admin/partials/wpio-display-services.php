@@ -12,27 +12,52 @@
  * @subpackage WPIO/admin/partials
  */
 
+function wpio_create_table_html($body) {
+?>
+  <table style="border: 1px solid #222">
+    <thead>
+      <th>Servizio</th>
+      <th>Scopo</th>
+    </thead>
+    <tbody>
+      <?php
+      foreach ($body->items as &$item) {
+        echo "<tr><td>{$item->service_id}</td><td>{$item->scope}</td></tr>";
+      }
+      ?>
+    </tbody>
+  </table>
+<?php
+}
+
 function wpio_options_page_html() {
   $options = get_option('wpio');
+  $headers = array(
+    'headers' => array(
+      'Ocp-Apim-Subscription-Key' => $options['apikey'],
+      'Content-Type' => 'application/json'
+    )
+  );
+  $base_url = 'http://172.17.0.1:3000/api/v1';
+  // $base_url = 'https://api.io.pagopa.it/api/v1';
+  $url = "{$base_url}/services";
+  $response = wp_remote_get($url, $headers);
+  $http_code = wp_remote_retrieve_response_code($response);
+
+  $body = json_decode(wp_remote_retrieve_body($response));
 ?>
   <div class="wrap">
     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
     <h2>WP IO - Lista servizi</h2>
-    <form action="options.php" method="post">
-      <legend for="apikey">API KEY</legend>
-      <input id="apikey" name="wpio[apikey]" type="text" value="<?php echo (isset($options['apikey']) ? $options['apikey'] : ''); ?>">
-      <?php
-      // output security fields for the registered setting "wpio_options"
-      settings_fields('wpio_options');
-      // output setting sections and their fields
-      // (sections are registered for "wpio", each field is registered to a specific section)
-      do_settings_sections('wpio');
-      // output save settings button
-      submit_button(__('Salva', 'textdomain'));
-      ?>
-    </form>
+    <?php
+    $http_code == 200 &&
+      wpio_create_table_html($body) ||
+      printf("Nessun servizio trovato oppure è stato riscontrato un errore<br /><br />");
+    ?>
+    <button>Aggiorna</button>
   </div>
 <?php
 }
+
 wpio_options_page_html()
 ?>
