@@ -76,39 +76,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wpio.php';
  * @since    1.0.0
  */
 function run_wpio() {
-
 	$plugin = new WPIO();
 	$plugin->run();
-
-  add_action( 'admin_menu', 'wpio_options_page' );
-  function wpio_options_page() {
-      register_setting('wpio_options', 'wpio'); //register page to use options.php as action in form
-      add_menu_page(
-          'API',
-          'WP IO',
-          'manage_options',
-          plugin_dir_path(__FILE__) . 'admin/partials/wpio-display.php',
-          null,
-          plugin_dir_url(__FILE__) . 'public/images/icon_wpio.png',
-          20
-      );
-  }
-  add_action( 'admin_menu', 'wpio_submenu_page' );
-  function wpio_submenu_page() {
-    add_submenu_page(
-      plugin_dir_path(__FILE__) . 'admin/partials/wpio-display.php',
-      'Servizi',
-      'Servizi',
-      'manage_options',
-      plugin_dir_path(__FILE__) . 'admin/partials/wpio-display-services.php',
-    );
-    add_submenu_page(
-      plugin_dir_path(__FILE__) . 'admin/partials/wpio-display.php',
-      'Messaggi',
-      'Messaggi',
-      'manage_options',
-      plugin_dir_path(__FILE__) . 'admin/partials/wpio-display-messages.php',
-    );
-  }
 }
 run_wpio();

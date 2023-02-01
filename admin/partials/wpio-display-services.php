@@ -38,9 +38,8 @@ function wpio_options_page_html() {
       'Content-Type' => 'application/json'
     )
   );
-  $base_url = 'http://172.17.0.1:3000/api/v1';
-  // $base_url = 'https://api.io.pagopa.it/api/v1';
-  $url = "{$base_url}/services";
+
+  $url = "{$BASE_URL}/services";
   $response = wp_remote_get($url, $headers);
   $http_code = wp_remote_retrieve_response_code($response);
 
