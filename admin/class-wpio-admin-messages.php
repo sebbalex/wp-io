@@ -89,7 +89,6 @@ class WPIO_Admin_Messages
     );
 
     $url = "{$this->config['base_url']}/services";
-    var_dump($url);
     $response = wp_remote_get($url, $headers);
     $http_code = wp_remote_retrieve_response_code($response);
 

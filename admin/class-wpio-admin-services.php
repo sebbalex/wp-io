@@ -108,7 +108,6 @@ class WPIO_Admin_Services
     );
 
     $url = "{$this->config['base_url']}/services";
-    var_dump($url);
     $response = wp_remote_get($url, $headers);
     $http_code = wp_remote_retrieve_response_code($response);
 
@@ -119,10 +118,11 @@ class WPIO_Admin_Services
       <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
       <h2>WP IO - Lista servizi</h2>
       <?php
-      $http_code == 200 &&
-        wpio_create_table_html($body) ||
+      $http_code == 200 ?
+        $this->wpio_create_table_html($body) :
         printf("Nessun servizio trovato oppure è stato riscontrato un errore<br /><br />");
       ?>
+      <br />
       <button>Aggiorna</button>
     </div>
 <?php
