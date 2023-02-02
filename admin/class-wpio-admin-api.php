@@ -34,6 +34,15 @@ class WPIO_Admin_API
    * @var      string    $version    The current version of this plugin.
    */
   private $version;
+  
+  /**
+   * The configuration of this plugin.
+   *
+   * @since    1.0.0
+   * @access   private
+   * @var      object    $config    The current configuration of this plugin.
+   */
+  private $config;
 
   /**
    * Initialize the class and set its properties.
@@ -42,11 +51,12 @@ class WPIO_Admin_API
    * @param      string    $plugin_name       The name of this plugin.
    * @param      string    $version    The version of this plugin.
    */
-  public function __construct($plugin_name, $version)
+  public function __construct($plugin_name, $version, $config)
   {
 
     $this->plugin_name = $plugin_name;
     $this->version = $version;
+    $this->config = $config;
   }
 
   /**
@@ -66,23 +76,6 @@ class WPIO_Admin_API
     );
   }
 
-  public function setup_plugin_options_submenu()
-  {
-    add_submenu_page(
-      'wp_io',
-      'Servizi',
-      'Servizi',
-      'manage_options',
-      plugin_dir_path(__FILE__) . 'partials/wpio-display-services.php',
-    );
-    add_submenu_page(
-      'wp_io',
-      'Messaggi',
-      'Messaggi',
-      'manage_options',
-      plugin_dir_path(__FILE__) . 'partials/wpio-display-messages.php',
-    );
-  }
 
   /**
    * Renders simple form to submit the API KEY
@@ -158,13 +151,6 @@ class WPIO_Admin_API
    */
   public function initialize_display_options()
   {
-
-    // If the theme options don't exist, create them.
-    if (false == get_option('wp_io_display_options')) {
-      $default_array = $this->default_display_options();
-      add_option('wp_io_display_options', $default_array);
-    }
-
     // Finally, we register the fields with WordPress
     register_setting('wpio_options', 'wpio_options'); //register page to use options.php as action in <form action=""></form>
   } // end wp_io_initialize_theme_options

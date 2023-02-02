@@ -73,6 +73,8 @@ class WPIO_Admin {
 		 * core plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/class-wpio-admin-api.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/class-wpio-admin-services.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) .  'admin/class-wpio-admin-messages.php';
 
 	}
 

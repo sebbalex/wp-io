@@ -56,6 +56,15 @@ class WPIO {
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	protected $version;
+  
+  /**
+   * The configuration of this plugin.
+   *
+   * @since    1.0.0
+   * @access   private
+   * @var      object    $config    The current configuration of this plugin.
+   */
+  private $config;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -78,7 +87,7 @@ class WPIO {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
+    $this->config = array();
 	}
 
 	/**
@@ -125,7 +134,7 @@ class WPIO {
     /**
      * custom properties defined for plugin.
      */
-    require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/config.php';
+    $this->config = include(plugin_dir_path( dirname( __FILE__ ) ) . 'includes/config.php');
 
 
 		$this->loader = new WPIO_Loader();
@@ -159,16 +168,19 @@ class WPIO {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new WPIO_Admin( $this->get_wpio(), $this->get_version() );
-    $plugin_api = new WPIO_Admin_API( $this->get_wpio(), $this->get_version() );
+    $plugin_api = new WPIO_Admin_API( $this->get_wpio(), $this->get_version(), $this->config );
+    $plugin_services = new WPIO_Admin_Services( $this->get_wpio(), $this->get_version(), $this->config );
+    $plugin_messages = new WPIO_Admin_Messages( $this->get_wpio(), $this->get_version(), $this->config );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
     $this->loader->add_action( 'admin_menu', $plugin_api, 'setup_plugin_options_menu' );
-    $this->loader->add_action( 'admin_menu', $plugin_api, 'setup_plugin_options_submenu' );
 		$this->loader->add_action( 'admin_init', $plugin_api, 'initialize_display_options' );
 		$this->loader->add_action( 'admin_init', $plugin_api, 'initialize_input_examples' );
-
+    
+    $this->loader->add_action( 'admin_menu', $plugin_services, 'setup_plugin_options_submenu_services' );
+    $this->loader->add_action( 'admin_menu', $plugin_messages, 'setup_plugin_options_submenu_messages' );
 	}
 
 	/**
